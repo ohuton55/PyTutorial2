@@ -2,7 +2,7 @@
 <html lang="en-US">
 	<head>
 		<meta charset="utf-8" />
-		<title>My test page</title>
+		<title>index page</title>
 	</head>
 	<body>
 		<!- model 'Question' objectがもしあれば ->
@@ -10,9 +10,14 @@
 			<ul>
 			<!- 要素の数だけquestionとして１つずつ取り出し ->
 				{% for question in latest_question_list %}
-				<!- そのidをurlへ　textをリンク表示文字へ ->
-					<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
-				{% endfor %}
+				<!- idをurlへ　textをリンク表示文字へ ->
+				<!- 下の書き方はURLが変わった際テンプレートも直さないといけない ->
+				<!- a href="/polls/{{ question.id }}/" ->
+				
+				<!- urls.py内polls名前空間のname='detail' を検索する ->
+				 <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+
+				 {% endfor %}
 			<ul>
 		{% else %}
 			<p>No polls are available.</p>
